@@ -1,22 +1,19 @@
-from setuptools import find_packages, setup
-import os
+from setuptools import find_packages,setup
 from typing import List
 
-HYPHEN_E_DOT = "-e ."
+HYPHEN_E_DOT = '-e .'
+def get_requirements(file_path:str)->List[str]:
 
-def get_requirments(path: str) -> List:
-    
     requirements = []
-    with open(path) as file_obj:
+
+    with open(file_path) as file_obj:
         requirements = file_obj.readlines()
-        requirements = [requirment.replace('\n','') for requirment in requirements]
+        requirements = [req.replace('\n','') for req in requirements]
+        if HYPHEN_E_DOT in requirements:
+            requirements.remove(HYPHEN_E_DOT)
+
     
-    if HYPHEN_E_DOT in requirements:
-        del HYPHEN_E_DOT
-    
-        return requirements
-        
-        
+    return requirements
 setup(
     name= "Sofifa mrkt value prediction",
     version= "0.0.1",
@@ -24,5 +21,5 @@ setup(
     author= "Priom Pal",
     author_email="priompalnfs@yahoo.com",
     packages= find_packages(),
-    install_requires = get_requirments('requirments.txt')
+    install_requires = get_requirements('requirments.txt')
 )
