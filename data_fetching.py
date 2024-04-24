@@ -36,7 +36,6 @@ for i in offset:
         position = player.find('div').text
         age, base, potential = player.find('td', {'class': 'd2', 'data-col': 'ae'}).text, player.find('td', {'class': 'd2', 'data-col': 'oa'}).text, player.find('td', {'class': 'd2', 'data-col': 'pt'}).text
         growth = int((re.split(r'[+-]', potential))[0]) - int((re.split(r'[+-]', base))[0])
-        # team = 
         id = player.find('td', class_ = "d6").text
         hieght = player.find('td', {'class': 's10', 'data-col': 'hi'}).text
         wieght = player.find('td', {'class': 's10', 'data-col': 'wi'}).text
