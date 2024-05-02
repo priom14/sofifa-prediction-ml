@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Information</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0; /* Light grey background */
+  }
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff; /* White container background */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type="submit"], .back-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  input[type="submit"]:hover, .back-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Player Information</h2>
+  <form action="/predict_data" method="post">
+    <label for="name">Name (max 20 characters):</label>
+    <input type="text" id="name" name="name" maxlength="20" required>
+
+    <label for="position">Position:</label>
+    <div style="display: flex;">
+    <select id="position1" name="position1" required>
+        <option value="">Select Position 1</option>
+        <option value="ST">ST</option>
+        <option value="CF">CF</option>
+        <option value="LF">LF</option>
+        <option value="RF">RF</option>
+        <option value="LW">LW</option>
+        <option value="RW">RW</option>
+        <option value="RM">RM</option>
+        <option value="LM">LM</option>
+        <option value="CM">CM</option>
+        <option value="CAM">CAM</option>
+        <option value="CDM">CDM</option>
+        <option value="RWB">RWB</option>
+        <option value="LWB">LWB</option>
+        <option value="LB">LB</option>
+        <option value="RB">RB</option>
+        <option value="CB">CB</option>
+        <option value="GK">GK</option>
+    </select>
+    <select id="position2" name="position2" required>
+        <option value="">Select Position 2</option>
+        <option value="ST">ST</option>
+        <option value="CF">CF</option>
+        <option value="LF">LF</option>
+        <option value="RF">RF</option>
+        <option value="LW">LW</option>
+        <option value="RW">RW</option>
+        <option value="RM">RM</option>
+        <option value="LM">LM</option>
+        <option value="CM">CM</option>
+        <option value="CAM">CAM</option>
+        <option value="CDM">CDM</option>
+        <option value="RWB">RWB</option>
+        <option value="LWB">LWB</option>
+        <option value="LB">LB</option>
+        <option value="RB">RB</option>
+        <option value="CB">CB</option>
+        <option value="GK">GK</option>
+    </select>
+    </div>
+
+
+    <label for="age">Age (15-50):</label>
+    <input type="number" id="age" name="age" min="15" max="50" required>
+
+    <label for="base_potential">Base Potential (0-100):</label>
+    <input type="number" id="base_potential" name="base_potential" min="0" max="100" required>
+
+    <label for="potential">Potential (above base potential to 100):</label>
+    <input type="number" id="potential" name="potential" min="0" max="100" required>
+
+    <script>
+    document.getElementById('base_potential').addEventListener('input', function() {
+        var basePotential = parseInt(document.getElementById('base_potential').value);
+        var potentialInput = document.getElementById('potential');
+        if (basePotential > parseInt(potentialInput.value)) {
+        potentialInput.value = basePotential;
+        }
+        potentialInput.setAttribute('min', basePotential);
+    });
+
+    document.getElementById('potential').addEventListener('input', function() {
+        var basePotential = parseInt(document.getElementById('base_potential').value);
+        var potential = parseInt(document.getElementById('potential').value);
+        if (potential < basePotential) {
+        document.getElementById('base_potential').value = potential;
+        }
+    });
+    </script>
+
+    <label for="height">Height (in cm):</label>
+    <input type="number" id="height" name="height" required>
+
+    <label for="weight">Weight (in kg):</label>
+    <input type="number" id="weight" name="weight" required>
+
+    <label for="preferred_foot">Preferred Foot (Right/Left):</label>
+    <select id="preferred_foot" name="preferred_foot" required>
+      <option value="Right">Right</option>
+      <option value="Left">Left</option>
+    </select>
+
+    <label for="wage">Wage (in dollars):</label>
+    <input type="number" id="wage" name="wage" required>
+
+    <label for="release_clause">Release Clause (in millions):</label>
+    <input type="number" id="release_clause" name="release_clause" required>
+
+    <input type="submit" value="Submit">
+    <a href="/" class="back-btn">Back to Home</a>
+  </form>
+
+  <hr> <!-- Horizontal line to separate sections -->
+
+  <h2>Market Value Prediction</h2>
+  <div id="predictionResult">
+    <p>The predicted market value for the player is: {{ predicted_market_value }} M</p>
+  </div>
+</div>
+
+
+</body>
+</html>

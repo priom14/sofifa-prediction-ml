@@ -3,23 +3,28 @@ import sys
 from src.exception import CustomException
 import dill
 from sklearn.metrics import r2_score
+import pickle
 
 def convert_to_millions(value):
-    if 'M' in value:
-        return float(value.replace('M', ''))
-    elif 'K' in value:
-        return float(value.replace('K', '')) / 1000  # Convert K to M
-    else:
-        return float(value)
-    
+    try:
+        if 'M' in value:
+            return float(value.replace('M', ''))
+        elif 'K' in value:
+            return float(value.replace('K', '')) / 1000  # Convert K to M
+        else:
+            return float(value)
+    except Exception as e:
+        raise CustomException(e, sys)
     
 
 def convert_to_dollars(value):
-    if 'K' in value:
-        return float(value.replace('K', '')) * 1000  # Convert K to dollars (multiply by 1000)
-    else:
-        return float(value)
-    
+    try:
+        if 'K' in value:
+            return float(value.replace('K', '')) * 1000  # Convert K to dollars (multiply by 1000)
+        else:
+            return float(value)
+    except Exception as e:
+        raise CustomException(e,sys)
 
 def save_object(file_path, obj):
     try:
@@ -51,3 +56,11 @@ def evaluate_model(X_train, y_train, X_test, y_test, models):
         
     except Exception as e:
         raise CustomException(e,sys)
+
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
