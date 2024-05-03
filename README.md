@@ -27,7 +27,7 @@ git clone https://github.com/priom14/sofifa-prediction-ml.git
 
 To run the project, you need the following dependencies:
 
-- Python 3.x
+- Python 3.9
 - Flask
 - Beautiful Soup
 - scikit-learn
