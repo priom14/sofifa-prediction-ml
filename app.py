@@ -43,10 +43,11 @@ def predict_datapoint():
         print(pred_df)
         
         predict_pipeline = PredictPipieline()
-        predicted_market_value = predict_pipeline.predict(pred_df)
-        formatted_market_value = "{:.2f}".format(predicted_market_value[0])
+        predict_market_value = predict_pipeline.predict(pred_df)
+        formatted_market_value = "{:.2f}".format(predict_market_value[0])
         
-    return render_template("predict.html", predicted_market_value=formatted_market_value) 
+        return render_template("predict.html", predicted_market_value = formatted_market_value)
+    return render_template("predict.html", predicted_market_value = None ) 
 
 
 

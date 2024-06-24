@@ -53,7 +53,7 @@
 
 <div class="container">
   <h2>Player Information</h2>
-  <form action="/predict_data" method="post">
+  <form action="{{ url_for('predict_datapoint')}}" method="post">
     <label for="name">Name (max 20 characters):</label>
     <input type="text" id="name" name="name" maxlength="20" required>
 
@@ -155,7 +155,7 @@
   <hr> <!-- Horizontal line to separate sections -->
 
   <h2>Market Value Prediction</h2>
-  <div id="predictionResult">
+  <div>
     <p>The predicted market value for the player is: {{ predicted_market_value }} M</p>
   </div>
 </div>
